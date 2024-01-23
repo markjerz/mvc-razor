@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using MvcRazor.Controllers;
+using MvcRazor.Components.Pages;
 
-namespace MvcRazor.Components.Pages
+namespace MvcRazor.Controllers
 {
     public class FooController : Controller
     {
