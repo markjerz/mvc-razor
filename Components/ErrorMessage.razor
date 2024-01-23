@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Mvc.Infrastructure
+@inject IActionContextAccessor ActionContextAccessor
+
+@if (ActionContextAccessor.ActionContext?.ModelState.TryGetValue(Name, out var entry) ?? false)
+{
+    foreach (var error in entry.Errors)
+    {
+        <p>@error.ErrorMessage</p>
+    }
+    
+}
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+}

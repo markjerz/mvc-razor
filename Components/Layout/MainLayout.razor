@@ -1,0 +1,45 @@
+﻿@inherits LayoutComponentBase
+@inject LayoutState LayoutState
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="MvcRazor.styles.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet />
+</head>
+<body>
+
+<div class="page">
+    @if (!LayoutState.DisableSidebar)
+    {
+        <div class="sidebar">
+            <NavMenu/>
+        </div>
+    }
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+</body>
+
+</html>
+
+@code
+{
+    [Parameter]
+    public bool ShowFooter { get; set; } = true;
+}

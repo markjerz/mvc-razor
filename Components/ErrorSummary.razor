@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Mvc.Infrastructure
+@inject IActionContextAccessor ActionContextAccessor
+
+@foreach(var error in ActionContextAccessor.ActionContext?.ModelState.Values)
+{
+    foreach (var entry in error.Errors)
+    {
+        <p>@entry.ErrorMessage</p>
+    }
+}
+

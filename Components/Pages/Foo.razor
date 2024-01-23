@@ -1,0 +1,65 @@
+﻿@page "/"
+@using MvcRazor.Components.Layout
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.Infrastructure
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.Routing
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using MvcRazor.Controllers
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IActionContextAccessor ActionContextAccessor
+@inject IUrlHelper Url
+@inject LayoutState LayoutState
+
+@{
+    LayoutState.DisableSidebar = HideSidebar;
+}
+
+<LayoutView Layout="typeof(MainLayout)">
+    
+
+    <PageTitle>Home</PageTitle>
+
+    <HeadContent>
+        <style>
+            main { background: #f0f088; }
+        </style>
+    </HeadContent>
+    
+    <p style="float: right;">
+        <a href="@Url.Action("Index", new { hideSidebar = !HideSidebar })">@(HideSidebar ? "Show Sidebar" : "Hide Sidebar")</a>
+    </p>
+
+    <h1>Hello, Foo!</h1>
+    
+    @if (HttpContextAccessor.HttpContext.Request.QueryString.HasValue)
+    {
+        @:Here's your querystring: @HttpContextAccessor.HttpContext.Request.QueryString
+    }
+    
+    @if (Model?.Bar != null)
+    {
+        <p>You entered @Model?.Bar</p>
+    }
+
+    <form action="@Url.Action("Post", "Foo")" method="post">
+        <AntiforgeryToken></AntiforgeryToken>
+        <ErrorSummary></ErrorSummary>
+        <label>Enter a value</label>
+        <input type="text" name="Bar"/>
+        <ErrorMessage Name="Bar"></ErrorMessage>
+        
+        <input type="submit" value="Submit"/>
+    </form>
+
+</LayoutView>
+
+@code
+{
+    [Parameter]
+    public bool HideSidebar { get; set; }
+
+    [Parameter]
+    public FooModel? Model { get; set; }
+}
